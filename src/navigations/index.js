@@ -31,13 +31,13 @@ const AppNavContainer = () => {
   }, [isLoggedIn]);
 
   return (
-    // <NavigationContainer>
-    //   <StackNavigator />
-    // </NavigationContainer>
-
     <NavigationContainer>
-      {isAuthenticated ? <StackNavigator /> : <AuthNavigator />}
+      <StackNavigator />
     </NavigationContainer>
+
+    // <NavigationContainer>
+    //   {isAuthenticated ? <StackNavigator /> : <AuthNavigator />}
+    // </NavigationContainer>
   );
 };
 

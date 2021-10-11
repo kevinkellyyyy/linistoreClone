@@ -27,7 +27,7 @@ const Login = ({navigation}) => {
   const onSubmit = () => {
     if (form.user_login && form.password) {
       loginUser(form)(authDispatch);
-      navigate(HOME_NAVIGATOR);
+      // navigate(HOME_NAVIGATOR);
 
       // navigation.navigate(HOME_NAVIGATOR);
     }
