@@ -22,6 +22,7 @@ import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import {GlobalContext} from '../../context/Provider';
 import AuthNavigator from '../AuthNavigator';
+import {ProductDetailScreen} from '../../screens/'
 
 const Stack = createStackNavigator();
 

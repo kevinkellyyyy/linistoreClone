@@ -35,7 +35,7 @@ const RegisterComponent = ({
   };
 
   const renderItem = ({item}) => {
-    console.log('item', item);
+    // console.log('item', item);
     const {id, vendor_name, name} = item;
     return (
       <TouchableOpacity>
@@ -77,15 +77,6 @@ const RegisterComponent = ({
               }}
             />
 
-            {/* <Input
-            label="No. Ktp"
-            iconPosition="right"
-            placeholder="Masukkan No Ktp"
-            onChangeText={value => {
-              onChange({name: 'id_number', value});
-            }}
-            error={errors.id_number || error?.id_number?.[0]}
-          /> */}
             <Input
               label="No. Hp"
               iconPosition="right"
@@ -163,7 +154,8 @@ const RegisterComponent = ({
             )}
             {!warehouseLoading && (
               <View style={{paddingVertical: 20}}>
-                <FlatList
+                
+                {/* <FlatList
                   renderItem={renderItem}
                   data={dataWarehouse}
                   ItemSeparatorComponent={() => {
@@ -178,7 +170,7 @@ const RegisterComponent = ({
                   ListEmptyComponent={ListEmptyComponent}
                   keyExtractor={item => String(item.id)}
                   ListFooterComponent={<View style={{height: 150}}></View>}
-                />
+                /> */}
               </View>
             )}
 

@@ -28,6 +28,7 @@ import ProductListComponents from '../ProductListComponents';
 import Message from '../../common/Message';
 import Carousel from '../../common/Carousels/Carousel';
 import {dummyData} from '../../data/Data';
+import ProductCard from '../../common/ProductCard';
 
 const HomeComponents = ({dataProduct, productLoading}) => {
   const {
@@ -45,43 +46,43 @@ const HomeComponents = ({dataProduct, productLoading}) => {
     );
   };
 
-  const renderItem = ({item}) => {
-    // console.log('item', item);
-    const {concat_name, price, unit_count, thumbnail_source} = item;
-    return (
-      <View
-        style={{
-          width: 180,
-          borderRadius: 8,
-          height: 300,
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: colors.grey,
-          position: 'relative',
-        }}>
-        <TouchableOpacity
-          onPress={() => {
-            navigate(PRODUCT_DETAIL);
-          }}>
-          <Image
-            style={{width: 150, height: 150}}
-            source={{uri: thumbnail_source}}
-          />
-        </TouchableOpacity>
-        <Text>{concat_name}</Text>
-        <Text>{unit_count}</Text>
-        <Text>{price}</Text>
-        <CustomButton
-          primary
-          white
-          title="Tambah ke keranjang"
-          onPress={() => {
-            navigate(CART_LIST);
-          }}
-        />
-      </View>
-    );
-  };
+  // const renderItem = ({item}) => {
+  //   // console.log('item', item);
+  //   const {concat_name, price, unit_count, thumbnail_source} = item;
+  //   return (
+  //     <View
+  //       style={{
+  //         width: 180,
+  //         borderRadius: 8,
+  //         height: 300,
+  //         justifyContent: 'center',
+  //         alignItems: 'center',
+  //         backgroundColor: colors.grey,
+  //         position: 'relative',
+  //       }}>
+  //       <TouchableOpacity
+  //         onPress={() => {
+  //           navigate(PRODUCT_DETAIL);
+  //         }}>
+  //         <Image
+  //           style={{width: 150, height: 150}}
+  //           source={{uri: thumbnail_source}}
+  //         />
+  //       </TouchableOpacity>
+  //       <Text>{concat_name}</Text>
+  //       <Text>{unit_count}</Text>
+  //       <Text>{price}</Text>
+  //       <CustomButton
+  //         primary
+  //         white
+  //         title="Tambah ke keranjang"
+  //         onPress={() => {
+  //           navigate(CART_LIST);
+  //         }}
+  //       />
+  //     </View>
+  //   );
+  // };
 
   return (
     <>
@@ -168,19 +169,16 @@ const HomeComponents = ({dataProduct, productLoading}) => {
               </View>
             )}
             {!productLoading && (
-              <FlatList
-                renderItem={renderItem}
-                data={dataProduct}
-                // ItemSeparatorComponent={() => {
-                //   return (
-                //     <View
-                //       style={{height: 0.5, backgroundColor: colors.grey}}></View>
-                //   );
-                // }}
-                ListEmptyComponent={ListEmptyComponent}
-                keyExtractor={item => String(item.id)}
-                // ListFooterComponent={<View style={{height: 150}}></View>}
-              />
+              <View style={styles.homeContainer}>
+                {console.log('=========',dataProduct)}
+                {dataProduct.map(product => {
+                  return (
+                    <View style={styles.item} key={product.id}>
+                      <ProductCard product={product} />
+                    </View>
+                  );
+                })}
+              </View>
             )}
           </View>
         </ScrollView>

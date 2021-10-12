@@ -68,11 +68,6 @@ const Register = () => {
         return {...prev, name: 'Mohon masukkan nama'};
       });
     }
-    if (!form.id_number) {
-      setErrors(prev => {
-        return {...prev, id_number: 'Mohon masukkan no Ktp'};
-      });
-    }
     if (!form.phone_number) {
       setErrors(prev => {
         return {...prev, phone_number: 'Mohon masukkan no Hp'};
@@ -89,6 +84,11 @@ const Register = () => {
           ...prev,
           password_confirmation: 'Mohon masukkan konfirmasi password',
         };
+      });
+    }
+    if (!form.vendor_id) {
+      setErrors(prev => {
+        return {...prev, vendor_id: 'Mohon masukkan no Hp'};
       });
     }
 

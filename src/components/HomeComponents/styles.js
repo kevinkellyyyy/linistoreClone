@@ -61,6 +61,17 @@ export default StyleSheet.create({
     width: 55,
     height: 25,
   },
+  homeContainer: {
+    flex: 1,
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    backgroundColor: '#e3e3e3',
+  },
+  item: {
+    width: '50%',
+    padding: 5,
+  },
   //   wrapper: {
   //     height: 42,
   //     borderWidth: 1,

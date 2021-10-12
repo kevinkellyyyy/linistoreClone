@@ -4,39 +4,28 @@ import getBarang from '../../context/actions/warehouse/getBarang';
 import getData from '../../context/actions/warehouse/getData';
 
 import {GlobalContext} from '../../context/Provider';
+import {getProductList} from '../../helpers/apiHelpers/productHelpers';
 
 const Home = ({navigation}) => {
-  const {
-    dataDispatch,
-    dataState: {
-      getProduct: {dataProduct, productLoading},
-    },
-  } = useContext(GlobalContext);
+  const [products, setProducts] = useState([]);
+  const [productsLoading, setProductsLoading] = useState(false);
 
-  // useEffect(() => {
-  //   // getData(dataDispatch);
-  //   axiosInstance
-  //     .get('web/product')
-  //     .then(res => {
-  //       console.log('productList', res.data.result.products.rows);
-  //       dispatch({
-  //         type: GET_PRODUCT_SUCCESS,
-  //         payload: res.data.result.products.rows,
-  //       });
-  //     })
-  //     .catch(err => {
-  //       dispatch({
-  //         type: GET_PRODUCT_FAIL,
-  //         payload: err.response
-  //           ? err.response.data
-  //           : {error: 'something went wrong, try again'},
-  //       });
-  //     });
-  //   console.log('test');
-  // }, []);
+  useEffect(() => {
+    console.log('jalan');
+    setProductsLoading(true);
+    getProductList()
+      .then(res => {
+        // console.log('res di home : ', res.data.result.products.rows);
+        setProducts(res.data.result.products.rows);
+        setProductsLoading(false);
+      })
+      .catch(err => {
+        console.log('error di home : ', err);
+      });
+  }, []);
 
   return (
-    <HomeComponents dataProduct={dataProduct} productLoading={productLoading} />
+    <HomeComponents dataProduct={products} productLoading={productsLoading} />
   );
 };
 
