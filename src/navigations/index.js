@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer} from '@react-navigation/native';
 import React, {useContext, useEffect} from 'react';
 import {ActivityIndicator} from 'react-native';
@@ -14,13 +15,14 @@ const AppNavContainer = () => {
 
   const getUser = async () => {
     try {
-      const user = await AsyncStorage.getItem('linistore');
+      const user = await AsyncStorage.getItem('user');
 
       if (user) {
-        setAuthLoaded(true);
+        // console.log('test aja nih', user);
+        // setAuthLoaded(true);
         setIsAutheticated(true);
       } else {
-        setAuthLoaded(true);
+        // setAuthLoaded(true);
         setIsAutheticated(false);
       }
     } catch (error) {}
@@ -30,14 +32,15 @@ const AppNavContainer = () => {
     getUser();
   }, [isLoggedIn]);
 
+  console.log('isautehn', isAuthenticated);
   return (
-    <NavigationContainer>
-      <StackNavigator />
-    </NavigationContainer>
-
     // <NavigationContainer>
-    //   {isAuthenticated ? <StackNavigator /> : <AuthNavigator />}
+    //   <StackNavigator />
     // </NavigationContainer>
+
+    <NavigationContainer>
+      {isAuthenticated ? <StackNavigator /> : <AuthNavigator />}
+    </NavigationContainer>
   );
 };
 

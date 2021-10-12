@@ -23,6 +23,8 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
   const {
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
+  const [isAuthenticated, setIsAutheticated] = React.useState(isLoggedIn);
+
   // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const {navigate} = useNavigation();
 
@@ -42,7 +44,7 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
           shadowOpacity: 5,
           shadowRadius: 2,
         }}>
-        {isLoggedIn ? (
+        {isAuthenticated ? (
           <View
             style={{
               alignItems: 'center',
