@@ -35,7 +35,7 @@ const StackNavigator = () => {
       <Stack.Screen name={PROFILE} component={Profile} />
       <Stack.Screen name={PRODUCT_DETAIL} component={ProductDetail} />
       <Stack.Screen name={AUTH_NAVIGATOR} component={AuthNavigator} />
-    </Stack.Navigator>
+    </Stack.Navigator> 
   );
 };
 
