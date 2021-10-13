@@ -1,8 +1,4 @@
-// import React from 'react';
-// import AxiosInstance from '../../helpers/axiosInterceptor';
-
 import _ from 'lodash';
-import {useCallback} from 'react';
 import AxiosInstance from '../axiosInterceptors';
 
 export const getData = (path, pagination, ordering, filter, headers) => {
@@ -47,11 +43,11 @@ const appendParams = (pagination, ordering, filter) => {
         if (_.isArray(filter[key])) {
           for (const index in filter[key]) {
             if (filter[key].hasOwnProperty(index)) {
-              Object.assign(params, {key: filter[key][index]});
+              Object.assign(params, {[key]: filter[key][index]});
             }
           }
         } else {
-          Object.assign(params, {key: filter[key]});
+          Object.assign(params, {[key]: filter[key]});
         }
       }
     }

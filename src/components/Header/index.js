@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 import colors from '../../assets/theme/colors';
 import Icon from '../../common/Icon';
@@ -8,24 +8,17 @@ import AppModal from '../../common/AppModal';
 import {useNavigation} from '@react-navigation/core';
 import {
   AUTH_NAVIGATOR,
-  CART_LIST,
   CART_LIST_STACK,
-  HOME,
-  HOME_NAVIGATOR,
   LOGIN,
-  PRODUCT_DETAIL,
   REGISTER,
 } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 
-const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
+const Header = () => {
   // untuk cek isloggedin
   const {
-    authState: {isLoggedIn},
+    authState: {isLoggedIn, data},
   } = useContext(GlobalContext);
-  const [isAuthenticated, setIsAutheticated] = React.useState(isLoggedIn);
-
-  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const {navigate} = useNavigation();
 
   return (
@@ -44,7 +37,7 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
           shadowOpacity: 5,
           shadowRadius: 2,
         }}>
-        {isAuthenticated ? (
+        {isLoggedIn ? (
           <View
             style={{
               alignItems: 'center',
@@ -59,6 +52,8 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
                 source={require('../../assets/images/linistore-logo.png')}
               />
             </View>
+            {/* <Text>{data.data.name}</Text> */}
+            {console.log('isi data', data)}
             <View>
               <TouchableOpacity
                 style={styles.icon}

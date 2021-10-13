@@ -18,16 +18,14 @@ export default ({password, user_login}) =>
         password,
       })
       .then(res => {
-        console.log('res.data', res.data);
-        // console.log('token', res.data.result);
 
         AsyncStorage.setItem('linistore', res.data.result);
         const token = res.data.result;
         const decoded = jwt_decode(token);
+        const userData = {token: token, data: decoded};
+        console.log(decoded)
 
-        console.log('decoded', decoded);
-
-        AsyncStorage.setItem('user', JSON.stringify(decoded));
+        AsyncStorage.setItem('user', JSON.stringify(userData));
 
         AsyncStorage.setItem(
           'warehouse',
@@ -40,7 +38,7 @@ export default ({password, user_login}) =>
         // AsyncStorage.setItem('user', JSON.stringify(res.data.getUser));
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: res.data,
+          payload: userData,
         });
       })
       .catch(err => {

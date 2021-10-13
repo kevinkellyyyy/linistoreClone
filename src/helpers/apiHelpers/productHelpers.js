@@ -1,24 +1,17 @@
 import {getData} from './apiHelpers';
 
-export const getProductList = () => {
-  let vendorId;
+export const getProductList = vendorId => {
   const pagination = {
-    row: 50,
+    row: 10,
     page: 1,
   };
   const filter = {
     random: true,
   };
-  // const temp = this.cache.currentUser;
-  const temp = null;
-  if (temp) {
-    vendorId = temp.vendor_id;
-  } else {
-    vendorId = 1;
-  }
   if (vendorId) {
     Object.assign(filter, {vendor_id: vendorId});
   }
+  console.log(filter)
   return getData('web/product', pagination, null, filter)
     .then(res => res)
     .catch(err => {
