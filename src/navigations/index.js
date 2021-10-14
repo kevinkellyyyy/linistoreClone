@@ -12,37 +12,6 @@ const AppNavContainer = () => {
     authDispatch,
     authState: {isLoggedIn},
   } = useContext(GlobalContext);
-  const [isAuthenticated, setIsAutheticated] = React.useState(isLoggedIn);
-  const [authLoaded, setAuthLoaded] = React.useState(false);
-  const [userAvaiable, setuserAvaiable] = React.useState(null);
-
-  const getUser = async () => {
-    try {
-      const user = await AsyncStorage.getItem('user');
-
-      if (user) {
-        console.log('isi user di async', JSON.parse(user))
-        // setIsAutheticated(true);
-        setuserAvaiable(JSON.parse(user));
-        updateUser()(authDispatch);
-      } else {
-        // setAuthLoaded(true);
-        setIsAutheticated(false);
-      }
-    } catch (error) {}
-  };
-
-  const updateUser = () => dispatch => {
-    console.log('test')
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: userAvaiable,
-    });
-  } 
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   console.log('isautehn', isLoggedIn);
   return (

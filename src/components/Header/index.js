@@ -1,5 +1,5 @@
-import React, {useContext, useEffect} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, Text, Image, TouchableOpacity, Button} from 'react-native';
 import colors from '../../assets/theme/colors';
 import Icon from '../../common/Icon';
 import Input from '../../common/Input';
@@ -13,13 +13,35 @@ import {
   REGISTER,
 } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUser } from '../../helpers/apiHelpers/userHelpers';
 
 const Header = () => {
   // untuk cek isloggedin
   const {
+    authDispatch,
     authState: {isLoggedIn, data},
   } = useContext(GlobalContext);
   const {navigate} = useNavigation();
+
+  const test = async () => {
+    try {
+      const user = await AsyncStorage.getItem('linistore');
+      if (user) {
+        getUser()(authDispatch);
+      }
+      console.log(user);
+    } catch (error) {}
+  }
+
+  useEffect(() => {
+    console.log("efek header jalan")
+    test();
+  }, []);
+
+  const test2 = () => {
+    console.log("data authstate",data);
+  }
 
   return (
     <View>
@@ -37,6 +59,7 @@ const Header = () => {
           shadowOpacity: 5,
           shadowRadius: 2,
         }}>
+        <Button title="test" onPress={() => test2()}></Button>
         {isLoggedIn ? (
           <View
             style={{
@@ -52,8 +75,7 @@ const Header = () => {
                 source={require('../../assets/images/linistore-logo.png')}
               />
             </View>
-            {/* <Text>{data.data.name}</Text> */}
-            {console.log('isi data', data)}
+            <Text>{data.name}</Text>
             <View>
               <TouchableOpacity
                 style={styles.icon}

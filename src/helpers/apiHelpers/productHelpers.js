@@ -11,7 +11,6 @@ export const getProductList = vendorId => {
   if (vendorId) {
     Object.assign(filter, {vendor_id: vendorId});
   }
-  console.log(filter)
   return getData('web/product', pagination, null, filter)
     .then(res => res)
     .catch(err => {
