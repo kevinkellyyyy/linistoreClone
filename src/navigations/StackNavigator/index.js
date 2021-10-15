@@ -22,7 +22,7 @@ import Login from '../../screens/Login';
 import Register from '../../screens/Register';
 import {GlobalContext} from '../../context/Provider';
 import AuthNavigator from '../AuthNavigator';
-import {ProductDetailScreen} from '../../screens/'
+import {ProductDetailScreen} from '../../screens/';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +35,7 @@ const StackNavigator = () => {
       <Stack.Screen name={PROFILE} component={Profile} />
       <Stack.Screen name={PRODUCT_DETAIL} component={ProductDetail} />
       <Stack.Screen name={AUTH_NAVIGATOR} component={AuthNavigator} />
-    </Stack.Navigator> 
+    </Stack.Navigator>
   );
 };
 

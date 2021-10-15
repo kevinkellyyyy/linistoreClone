@@ -35,6 +35,7 @@ const LoginComponent = ({
         <View style={styles.form}>
           {error && !error.error && (
             <Message
+              retry
               danger
               onDismiss={() => {}}
               message="Invalid credentials"

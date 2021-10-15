@@ -1,25 +1,16 @@
-import { useState } from 'react';
-import { GlobalContext } from '../../context/Provider';
+import { GET_UPDATED_USER } from '../../constants/actionTypes';
 import {getData} from './apiHelpers';
 
-export const getUser = () => {
-
-  let userId;
-
-  const {
-    authState : {isLoggedin, data},
-  } = useContext(contextValue)
-  const [user, setUser] = useState([]);
-  const [userLoading, setUserLoading] = useState(false);
-
-  setUserLoading(true);
-  return getData('web/user', null, null, null)
+export const getUser = () => dispatch => {
+  return getData('web/user/profile')
     .then(res => {
-      console.log('res.data', res.data);
-      setUser(res.data.result);
-      setUserLoading(false);
+      console.log('data get user ',res.data);
+      dispatch({
+        type: GET_UPDATED_USER,
+        payload: res.data.result,
+      });
     })
     .catch(err => {
       throw err;
-  });
+    });
 };

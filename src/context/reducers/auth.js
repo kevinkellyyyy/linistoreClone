@@ -1,5 +1,6 @@
 import {
   CLEAR_AUTH_STATE,
+  GET_UPDATED_USER,
   LOGIN_FAIL,
   LOGIN_LOADING,
   LOGIN_SUCCESS,
@@ -30,6 +31,7 @@ const auth = (state, {type, payload}) => {
         loading: false,
         data: payload,
         isLoggedIn: true,
+        pindah: true,
       };
 
     case LOGOUT_USER:
@@ -52,6 +54,14 @@ const auth = (state, {type, payload}) => {
         ...state,
         loading: false,
         data: null,
+        error: null,
+      };
+
+    case GET_UPDATED_USER:
+      return {
+        ...state,
+        isLoggedIn: true,
+        data: payload,
         error: null,
       };
 

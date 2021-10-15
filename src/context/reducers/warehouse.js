@@ -7,7 +7,7 @@ import {
   GET_WAREHOUSE_SUCCESS,
 } from '../../constants/actionTypes';
 
-const data = (state, {type, payload}) => {
+const warehouse = (state, {type, payload}) => {
   switch (type) {
     //GET WAREHOUSE
     case GET_WAREHOUSE_LOADING:
@@ -76,4 +76,4 @@ const data = (state, {type, payload}) => {
   }
 };
 
-export default data;
+export default warehouse;

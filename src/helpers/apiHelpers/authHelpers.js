@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/core';
 import jwt_decode from 'jwt-decode';
 import {
   LOGIN_FAIL,
@@ -9,6 +10,8 @@ import {
   REGISTER_FAIL,
   REGISTER_LOADING,
   REGISTER_SUCCESS,
+  HOME_NAVIGATOR,
+  HOME,
 } from '../../constants/actionTypes';
 import axiosInstance from '../axiosInterceptors';
 
@@ -24,16 +27,13 @@ export const loginUser =
         password,
       })
       .then(res => {
-        console.log('res.data', res.data);
-        // console.log('token', res.data.result);
-
         AsyncStorage.setItem('linistore', res.data.result);
         const token = res.data.result;
         const decoded = jwt_decode(token);
+        const userData = {token: token, data: decoded};
+        console.log(decoded);
 
-        console.log('decoded', decoded);
-
-        AsyncStorage.setItem('user', JSON.stringify(decoded));
+        AsyncStorage.setItem('user', JSON.stringify(userData));
 
         AsyncStorage.setItem(
           'warehouse',
@@ -46,7 +46,7 @@ export const loginUser =
         // AsyncStorage.setItem('user', JSON.stringify(res.data.getUser));
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: res.data,
+          payload: userData,
         });
       })
       .catch(err => {
@@ -72,7 +72,7 @@ export const regisUser =
       type: REGISTER_LOADING,
     });
     axiosInstance
-      .post('web/auth/register', {
+      .post('web/auth/registerr', {
         name,
         vendor_id,
         phone_number,
@@ -98,8 +98,8 @@ export const regisUser =
   };
 
 export const logoutUser = () => dispatch => {
-  AsyncStorage.removeItem('token');
-  AsyncStorage.removeItem('user');
+  AsyncStorage.removeItem('linistore');
+
   dispatch({
     type: LOGOUT_USER,
   });

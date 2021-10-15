@@ -5,9 +5,9 @@ import {useContext} from 'react';
 import {useState} from 'react';
 import RegisterComponent from '../../components/RegisterComponent';
 import {LOGIN} from '../../constants/routeNames';
-import register, {clearAuthState} from '../../context/actions/auth/register';
-import getData from '../../context/actions/warehouse/getData';
 import {GlobalContext} from '../../context/Provider';
+import {clearAuthState, regisUser} from '../../helpers/apiHelpers/authHelpers';
+import {getWarehouse} from '../../helpers/apiHelpers/warehouseHelpers';
 
 const Register = () => {
   const [form, setForm] = useState({});
@@ -23,7 +23,7 @@ const Register = () => {
   } = useContext(GlobalContext);
 
   useEffect(() => {
-    getData()(dataDispatch);
+    getWarehouse()(dataDispatch);
   }, []);
 
   useFocusEffect(
@@ -50,6 +50,16 @@ const Register = () => {
             return {...prev, [name]: null};
           });
         }
+      } else if (name === 'password_confirmation') {
+        if (value.length < 6) {
+          setErrors(prev => {
+            return {...prev, [name]: 'This field needs min 6 characters'};
+          });
+        } else {
+          setErrors(prev => {
+            return {...prev, [name]: null};
+          });
+        }
       } else {
         setErrors(prev => {
           return {...prev, [name]: null};
@@ -63,6 +73,7 @@ const Register = () => {
   };
 
   const onSubmit = () => {
+    console.log(form);
     if (!form.name) {
       setErrors(prev => {
         return {...prev, name: 'Mohon masukkan nama'};
@@ -86,9 +97,18 @@ const Register = () => {
         };
       });
     }
+    if (form.password !== form.password_confirmation) {
+      setErrors(prev => {
+        return {
+          ...prev,
+          password_confirmation:
+            'Konfirmasi Password harus sama dengan password',
+        };
+      });
+    }
     if (!form.vendor_id) {
       setErrors(prev => {
-        return {...prev, vendor_id: 'Mohon masukkan no Hp'};
+        return {...prev, vendor_id: 'Mohon pilih gudang'};
       });
     }
 
@@ -97,7 +117,7 @@ const Register = () => {
       Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
-      register(form)(authDispatch)(response => {
+      regisUser(form)(authDispatch)(response => {
         navigate(LOGIN, {data: response});
       });
     }

@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
+import {View, Text, Image, TouchableOpacity, Button} from 'react-native';
 import colors from '../../assets/theme/colors';
 import Icon from '../../common/Icon';
 import Input from '../../common/Input';
@@ -8,25 +8,40 @@ import AppModal from '../../common/AppModal';
 import {useNavigation} from '@react-navigation/core';
 import {
   AUTH_NAVIGATOR,
-  CART_LIST,
   CART_LIST_STACK,
-  HOME,
-  HOME_NAVIGATOR,
   LOGIN,
-  PRODUCT_DETAIL,
   REGISTER,
 } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {getUser} from '../../helpers/apiHelpers/userHelpers';
 
-const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
+const Header = () => {
   // untuk cek isloggedin
   const {
-    authState: {isLoggedIn},
+    authDispatch,
+    authState: {isLoggedIn, data},
   } = useContext(GlobalContext);
-  const [isAuthenticated, setIsAutheticated] = React.useState(isLoggedIn);
-
-  // const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const {navigate} = useNavigation();
+
+  const test = async () => {
+    try {
+      const user = await AsyncStorage.getItem('linistore');
+      if (user) {
+        getUser()(authDispatch);
+      }
+      console.log(user);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    console.log('efek header jalan');
+    test();
+  }, []);
+
+  const test2 = () => {
+    console.log('data authstate', data);
+  };
 
   return (
     <View>
@@ -44,7 +59,8 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
           shadowOpacity: 5,
           shadowRadius: 2,
         }}>
-        {isAuthenticated ? (
+        {/* <Button title="test" onPress={() => test2()}></Button> */}
+        {isLoggedIn ? (
           <View
             style={{
               alignItems: 'center',
@@ -59,6 +75,7 @@ const Header = ({modalVisible, data, loading, setModalVisible, navigation}) => {
                 source={require('../../assets/images/linistore-logo.png')}
               />
             </View>
+            <Text>{data.name}</Text>
             <View>
               <TouchableOpacity
                 style={styles.icon}

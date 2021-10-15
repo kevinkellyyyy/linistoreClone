@@ -1,15 +1,19 @@
 import React, {createContext, useReducer} from 'react';
-import authInitialState from './initialStates/authState';
+import authInitialState from './initialStates/userState';
 import auth from './reducers/auth';
 
-import data from './reducers/data';
-import dataInitialState from './initialStates/dataInitialState';
+import userState from './initialStates/userState';
+import warehouseInitialState from './initialStates/warehouseInitialState';
+import warehouse from './reducers/warehouse';
 
 export const GlobalContext = createContext({});
 
 const GlobalProvider = ({children}) => {
-  const [authState, authDispatch] = useReducer(auth, authInitialState);
-  const [dataState, dataDispatch] = useReducer(data, dataInitialState);
+  const [authState, authDispatch] = useReducer(auth, userState);
+  const [dataState, dataDispatch] = useReducer(
+    warehouse,
+    warehouseInitialState,
+  );
 
   return (
     <GlobalContext.Provider
