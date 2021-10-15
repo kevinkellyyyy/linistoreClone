@@ -4,4 +4,5 @@ export default {
   dataWarehouse: [],
   error: null,
   loading: false,
+  pindah: false,
 };

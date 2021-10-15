@@ -1,36 +1,43 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import LoginComponent from '../../components/LoginComponent';
-import {HOME, HOME_NAVIGATOR} from '../../constants/routeNames';
-import loginUser from '../../context/actions/auth/loginUser';
+import {HOME, HOME_NAVIGATOR, LOGIN} from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
+import {loginUser} from '../../helpers/apiHelpers/authHelpers';
 
 const Login = ({navigation}) => {
-  const {navigate} = useNavigation();
-  const [value, onChangeText] = React.useState('');
   const [justSignedUp, setJustSignedUp] = useState(false);
   const [form, setForm] = useState({});
+  const {navigate} = useNavigation();
+  const [errors, setErrors] = useState({});
+
   const {params} = useRoute();
+  const {
+    authDispatch,
+    authState: {error, loading, pindah},
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     if (params?.data) {
       setJustSignedUp(true);
       setForm({...form, user_login: params.data.user_login});
     }
-  }, [params]);
-
-  const {
-    authDispatch,
-    authState: {error, loading, isLoggedIn},
-  } = useContext(GlobalContext);
+    if (pindah === true) {
+      navigate(HOME_NAVIGATOR, {screen: HOME});
+    }
+  }, [params, pindah]);
 
   const onSubmit = () => {
     if (form.user_login && form.password) {
       loginUser(form)(authDispatch);
-      // navigate(HOME_NAVIGATOR, {screen: HOME});
 
       // navigation.navigate(HOME_NAVIGATOR);
     }
+    // if (Object.values(errors).every(item => !item)) {
+    //   console.log('error');
+    // } else {
+    //   navigate(HOME_NAVIGATOR, {screen: HOME});
+    // }
   };
 
   const onChange = ({name, value}) => {
@@ -43,6 +50,7 @@ const Login = ({navigation}) => {
       onChange={onChange}
       form={form}
       error={error}
+      errors={errors}
       loading={loading}
       justSignedUp={justSignedUp}
     />

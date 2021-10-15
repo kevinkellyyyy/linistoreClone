@@ -1,7 +1,14 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 
-import {ActivityIndicator, FlatList, Image, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Modal,
+  Text,
+  View,
+} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../common/Container';
 import CustomButton from '../../common/CustomButton';
@@ -12,6 +19,7 @@ import styles from './styles';
 import Icon from '../../common/Icon';
 import colors from '../../assets/theme/colors';
 import Home from '../../screens/Home';
+import ModalPicker from '../../common/ModalPicker';
 
 const RegisterComponent = ({
   onSubmit,
@@ -26,27 +34,16 @@ const RegisterComponent = ({
 }) => {
   const {navigate} = useNavigation();
   const [isSecureEntry, setIsSecureEntry] = useState(true);
-  const ListEmptyComponent = () => {
-    return (
-      <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-        <Message info message="No Warehouse to show" />
-      </View>
-    );
+
+  //DropDown
+  const [chooseData, setChooseData] = useState('Pilih Gudang');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const changeModalVisibility = bool => {
+    setIsModalVisible(bool);
   };
 
-  const renderItem = ({item}) => {
-    // console.log('item', item);
-    const {id, vendor_name, name} = item;
-    return (
-      <TouchableOpacity>
-        <View>
-          <View>
-            <Text>{name}</Text>
-          </View>
-        </View>
-        {/* <Icon name="right" type="ant" size={17} color={colors.grey} /> */}
-      </TouchableOpacity>
-    );
+  const setData = option => {
+    setChooseData(option);
   };
 
   return (
@@ -143,36 +140,35 @@ const RegisterComponent = ({
                 error?.password_confirmation?.[0]
               }
               onChangeText={value => {
+                console.log('kon', value);
                 onChange({name: 'password_confirmation', value});
               }}
             />
             {console.log('err', error)}
-            {warehouseLoading && (
-              <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-                <ActivityIndicator color={colors.primary} size="large" />
-              </View>
-            )}
-            {!warehouseLoading && (
-              <View style={{paddingVertical: 20}}>
-                
-                {/* <FlatList
-                  renderItem={renderItem}
-                  data={dataWarehouse}
-                  ItemSeparatorComponent={() => {
-                    return (
-                      <View
-                        style={{
-                          height: 0.5,
-                          backgroundColor: colors.grey,
-                        }}></View>
-                    );
+
+            <Text style={{paddingVertical: 7}}>Pilih Gudang Terdekat</Text>
+            <View style={styles.dropdownWrapper}>
+              <TouchableOpacity
+                style={styles.btnDropdown}
+                onPress={() => changeModalVisibility(true)}>
+                <Text style={styles.txtBtnDropdown}>{chooseData}</Text>
+              </TouchableOpacity>
+              <Modal
+                transparent={true}
+                animationType="fade"
+                visible={isModalVisible}
+                nRequestClose={() => changeModalVisibility(false)}>
+                <ModalPicker
+                  dataWarehouse={dataWarehouse}
+                  changeModalVisibility={changeModalVisibility}
+                  setData={setData}
+                  onChangeText={value => {
+                    console.log('testtt', value);
+                    onChange({name: 'vendor_id', value});
                   }}
-                  ListEmptyComponent={ListEmptyComponent}
-                  keyExtractor={item => String(item.id)}
-                  ListFooterComponent={<View style={{height: 150}}></View>}
-                /> */}
-              </View>
-            )}
+                />
+              </Modal>
+            </View>
 
             <CustomButton
               loading={loading}

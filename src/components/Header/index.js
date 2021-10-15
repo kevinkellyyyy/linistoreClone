@@ -14,7 +14,7 @@ import {
 } from '../../constants/routeNames';
 import {GlobalContext} from '../../context/Provider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUser } from '../../helpers/apiHelpers/userHelpers';
+import {getUser} from '../../helpers/apiHelpers/userHelpers';
 
 const Header = () => {
   // untuk cek isloggedin
@@ -32,16 +32,17 @@ const Header = () => {
       }
       console.log(user);
     } catch (error) {}
-  }
+  };
 
   useEffect(() => {
-    console.log("efek header jalan")
+    console.log('efek header jalan');
+    [data];
     test();
   }, []);
 
   const test2 = () => {
-    console.log("data authstate",data);
-  }
+    console.log('data authstate', data);
+  };
 
   return (
     <View>
@@ -59,7 +60,7 @@ const Header = () => {
           shadowOpacity: 5,
           shadowRadius: 2,
         }}>
-        <Button title="test" onPress={() => test2()}></Button>
+        {/* <Button title="test" onPress={() => test2()}></Button> */}
         {isLoggedIn ? (
           <View
             style={{

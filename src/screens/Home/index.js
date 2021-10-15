@@ -1,7 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
 import HomeComponents from '../../components/HomeComponents';
-import getBarang from '../../context/actions/warehouse/getBarang';
-import getData from '../../context/actions/warehouse/getData';
 
 import {GlobalContext} from '../../context/Provider';
 import {getProductList} from '../../helpers/apiHelpers/productHelpers';

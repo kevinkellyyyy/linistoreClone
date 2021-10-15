@@ -15,6 +15,24 @@ export default StyleSheet.create({
   createSection: {
     flexDirection: 'row',
   },
+
+  dropdownWrapper: {
+    flex: 1,
+    borderRadius: 4,
+    opacity: 0.6,
+    borderWidth: 1,
+    borderColor: 'grey',
+    padding: 10,
+  },
+
+  txtBtnDropdown: {
+    fontSize: 17,
+  },
+
+  btnDropdown: {
+    width: '100%',
+  },
+
   linkBtn: {
     paddingLeft: 17,
     color: colors.primary,
