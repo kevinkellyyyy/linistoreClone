@@ -36,7 +36,6 @@ const Header = () => {
 
   useEffect(() => {
     console.log('efek header jalan');
-    [data];
     test();
   }, []);
 
