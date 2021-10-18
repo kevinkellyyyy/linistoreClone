@@ -7,7 +7,6 @@ const ProductDetailScreen = ({route, navigation}) => {
   const [productDetail, setProductDetail] = useState({});
   const productId = route.params.productId;
   useEffect(() => {
-    console.log('jalan', productId);
     getProductById(productId)
       .then(res => {
         // console.log('res di product detail : ', res.data.result.product);

@@ -15,7 +15,6 @@ const ProductCard = ({product}) => {
   const navigation = useNavigation();
 
   const addToCart = productId => {
-    console.log(productId);
     if (!isLoggedIn) {
       Toast.showWithGravity(
         'Gagal tambah ke keranjang, silahkan melakukan login terlebih dahulu',

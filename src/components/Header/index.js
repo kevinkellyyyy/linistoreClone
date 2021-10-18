@@ -20,6 +20,7 @@ const Header = () => {
   // untuk cek isloggedin
   const {
     authDispatch,
+    cartState: {cartData},
     authState: {isLoggedIn, data},
   } = useContext(GlobalContext);
   const {navigate} = useNavigation();
@@ -30,18 +31,17 @@ const Header = () => {
       if (user) {
         getUser()(authDispatch);
       }
-      console.log(user);
     } catch (error) {}
   };
 
   useEffect(() => {
-    console.log('efek header jalan');
     test();
   }, []);
 
-  const test2 = () => {
-    console.log('data authstate', data);
-  };
+  // const test2 = () => {
+  //   console.log('data authstate', data);
+  //   console.log('data cartState', cartData);
+  // };
 
   return (
     <View>
@@ -87,7 +87,7 @@ const Header = () => {
                   size={21}
                   name="shopping-cart"
                 />
-                <Text style={{color: colors.grey, fontWeight: '500'}}>: 1</Text>
+                <Text style={{color: colors.grey, fontWeight: '500'}}>: {cartData?.count ? cartData.count : '0'}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -135,7 +135,7 @@ const Header = () => {
                 size={21}
                 name="shopping-cart"
               />
-              <Text style={{color: colors.grey, fontWeight: '500'}}>: 1</Text>
+              <Text style={{color: colors.grey, fontWeight: '500'}}>: {cartData?.count ? cartData.count : '0'}</Text>
             </View>
           </View>
         )}

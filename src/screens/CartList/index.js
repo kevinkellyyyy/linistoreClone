@@ -1,24 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, Text, ScrollView, Image} from 'react-native';
 import CartListComponents from '../../components/CartListComponents';
-import {getCartList} from '../../helpers/apiHelpers/cartHelpers';
+import { GlobalContext } from '../../context/Provider';
+import {getCartList, setCart} from '../../helpers/apiHelpers/cartHelpers';
 
-const CartList = () => {
+const CartList = ({navigation}) => {
+  const {
+    cartDispatch
+  } = useContext(GlobalContext)
   const [items, setItems] = useState([]);
   const [cartDetail, setCartDetail] = useState([]);
   const [itemsLoading, setItemsLoading] = useState(true);
 
   useEffect(() => {
-    getCartList()
-      .then(res => {
-        setItemsLoading(true);
-        setItems(res.data.result.carts.rows);
-        setCartDetail(res.data.result.carts);
-        setItemsLoading(false);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    navigation.addListener('focus', () => {
+      getCartList()
+        .then(res => {
+          setItemsLoading(true);
+          setItems(res.data.result.carts.rows);
+          setCartDetail(res.data.result.carts);
+          setItemsLoading(false);
+          setCart(res.data.result.carts)(cartDispatch); 
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    })
   }, []);
   return (
     <CartListComponents

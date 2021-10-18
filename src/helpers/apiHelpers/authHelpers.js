@@ -30,10 +30,6 @@ export const loginUser =
         AsyncStorage.setItem('linistore', res.data.result);
         const token = res.data.result;
         const decoded = jwt_decode(token);
-        const userData = {token: token, data: decoded};
-        console.log(decoded);
-
-        AsyncStorage.setItem('user', JSON.stringify(userData));
 
         AsyncStorage.setItem(
           'warehouse',
@@ -42,11 +38,10 @@ export const loginUser =
             name: decoded.vendor_name,
           }),
         );
-
-        // AsyncStorage.setItem('user', JSON.stringify(res.data.getUser));
+        
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: userData,
+          payload: decoded,
         });
       })
       .catch(err => {
@@ -64,6 +59,7 @@ export const clearAuthState = () => dispatch => {
     type: CLEAR_AUTH_STATE,
   });
 };
+
 export const regisUser =
   ({name, vendor_id, phone_number, password, password_confirmation}) =>
   dispatch =>
@@ -99,6 +95,7 @@ export const regisUser =
 
 export const logoutUser = () => dispatch => {
   AsyncStorage.removeItem('linistore');
+  AsyncStorage.removeItem('warehouse');
 
   dispatch({
     type: LOGOUT_USER,

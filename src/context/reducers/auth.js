@@ -38,8 +38,9 @@ const auth = (state, {type, payload}) => {
       return {
         ...state,
         loading: false,
-        data: null,
+        data: {},
         isLoggedIn: false,
+        pindah: false,
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
@@ -53,7 +54,7 @@ const auth = (state, {type, payload}) => {
       return {
         ...state,
         loading: false,
-        data: null,
+        data: {},
         error: null,
       };
 
