@@ -65,19 +65,20 @@ export const clearAuthState = () => dispatch => {
   });
 };
 export const regisUser =
-  ({name, vendor_id, phone_number, password, password_confirmation}) =>
+  ({name, password, password_confirmation, phone_number, tnc, vendor_id}) =>
   dispatch =>
   onSuccess => {
     dispatch({
       type: REGISTER_LOADING,
     });
     axiosInstance
-      .post('web/auth/registerr', {
+      .post('web/auth/register', {
         name,
-        vendor_id,
-        phone_number,
         password,
         password_confirmation,
+        phone_number,
+        tnc,
+        vendor_id,
       })
       .then(res => {
         console.log('res', res);

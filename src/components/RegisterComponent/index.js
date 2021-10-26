@@ -17,9 +17,9 @@ import {HOME_NAVIGATOR, LOGIN} from '../../constants/routeNames';
 import Message from '../../common/Message';
 import styles from './styles';
 import Icon from '../../common/Icon';
-import colors from '../../assets/theme/colors';
-import Home from '../../screens/Home';
-import ModalPicker from '../../common/ModalPicker';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import DropDownPicker from 'react-native-dropdown-picker';
+// import CheckBox from '@react-native-community/checkbox';
 
 const RegisterComponent = ({
   onSubmit,
@@ -28,6 +28,7 @@ const RegisterComponent = ({
   loading,
   data,
   dataWarehouse,
+  vendor_id,
   warehouseLoading,
   error,
   errors,
@@ -37,6 +38,7 @@ const RegisterComponent = ({
 
   //DropDown
   const [chooseData, setChooseData] = useState('Pilih Gudang');
+  const [checkboxState, setCheckboxState] = React.useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const changeModalVisibility = bool => {
     setIsModalVisible(bool);
@@ -44,7 +46,23 @@ const RegisterComponent = ({
 
   const setData = option => {
     setChooseData(option);
+    console.log(option);
   };
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    {label: 'RetailKita Piyungan', value: 1},
+    {label: 'RetailKita Semarang', value: 7},
+    {label: 'RetailKita Minggir Sleman', value: 8},
+    {label: 'RetailKita Nanggulan', value: 9},
+    {label: 'RetailKita Ponjong', value: 10},
+    {label: 'RetailKita Sumber Harjo', value: 11},
+    {label: 'RetailKita Hasta Manunggal Mojolaban', value: 12},
+    {label: 'RetailKita Ngadirojo Wng', value: 13},
+    {label: 'RetailKita Kendal', value: 14},
+    {label: 'Toko RetailKita Piyungan', value: 157},
+  ]);
 
   return (
     <>
@@ -140,14 +158,68 @@ const RegisterComponent = ({
                 error?.password_confirmation?.[0]
               }
               onChangeText={value => {
-                console.log('kon', value);
                 onChange({name: 'password_confirmation', value});
               }}
             />
+            <Text style={{paddingVertical: 7}}>Pilih Gudang Terdekat</Text>
+
+            <DropDownPicker
+              listMode={'SCROLLVIEW'}
+              placeholder="Pilih Gudang"
+              selectedItemLabelStyle={{color: 'blue'}}
+              open={open}
+              value={value}
+              items={items}
+              setOpen={setOpen}
+              setValue={setValue}
+              setItems={setItems}
+              error={errors.vendor_id || error?.vendor_id?.[0]}
+              onChangeValue={value => {
+                console.log('sinidah', value);
+                onChange({name: 'vendor_id', value});
+              }}
+            />
+
+            {/* <BouncyCheckbox
+              size={25}
+              fillColor="red"
+              unfillColor="#FFFFFF"
+              text="Custom Checkbox"
+              iconStyle={{borderColor: 'red'}}
+              textStyle={{fontFamily: 'JosefinSans-Regular'}}
+              onPress={(isChecked: true) => {}}
+            /> */}
+
+            <BouncyCheckbox
+              style={{marginTop: 16}}
+              textStyle={{fontSize: 10}}
+              fillColor="blue"
+              isChecked={checkboxState}
+              text="Dengan ini saya setuju dengan syarat dan ketentuan,
+              serta kebijakan privasi LINIID"
+              // disableBuiltInState
+              onPress={value => {
+                setCheckboxState(!checkboxState);
+
+                console.log(value);
+              }}
+            />
+
+            <Text
+              style={{
+                color: 'blue',
+              }}>
+              {checkboxState.toString()}
+            </Text>
+            {/* 
+            <CheckBox
+              disabled={false}
+              value={toggleCheckBox}
+              onValueChange={newValue => setToggleCheckBox(newValue)}
+            /> */}
             {console.log('err', error)}
 
-            <Text style={{paddingVertical: 7}}>Pilih Gudang Terdekat</Text>
-            <View style={styles.dropdownWrapper}>
+            {/* <View style={styles.dropdownWrapper}>
               <TouchableOpacity
                 style={styles.btnDropdown}
                 onPress={() => changeModalVisibility(true)}>
@@ -162,14 +234,10 @@ const RegisterComponent = ({
                   dataWarehouse={dataWarehouse}
                   changeModalVisibility={changeModalVisibility}
                   setData={setData}
-                  onChangeText={value => {
-                    console.log('testtt', value);
-                    onChange({name: 'vendor_id', value});
-                  }}
+                  vendor_id={vendor_id}
                 />
               </Modal>
-            </View>
-
+            </View> */}
             <CustomButton
               loading={loading}
               onPress={onSubmit}

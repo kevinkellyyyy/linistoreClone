@@ -11,8 +11,11 @@ import {getWarehouse} from '../../helpers/apiHelpers/warehouseHelpers';
 
 const Register = () => {
   const [form, setForm] = useState({});
+
   const {navigate} = useNavigation();
+
   const [errors, setErrors] = useState({});
+
   const {
     authDispatch,
     authState: {error, loading, data},
@@ -37,6 +40,7 @@ const Register = () => {
   );
 
   const onChange = ({name, value}) => {
+    // setForm({...form, [name]: value}, (tnc = true));
     setForm({...form, [name]: value});
 
     if (value !== '') {
@@ -74,6 +78,7 @@ const Register = () => {
 
   const onSubmit = () => {
     console.log(form);
+
     if (!form.name) {
       setErrors(prev => {
         return {...prev, name: 'Mohon masukkan nama'};
@@ -106,7 +111,7 @@ const Register = () => {
         };
       });
     }
-    if (!form.vendor_id) {
+    if (!form.vendor_id === null) {
       setErrors(prev => {
         return {...prev, vendor_id: 'Mohon pilih gudang'};
       });
@@ -114,7 +119,6 @@ const Register = () => {
 
     if (
       Object.values(form).length === 5 &&
-      Object.values(form).every(item => item.trim().length > 0) &&
       Object.values(errors).every(item => !item)
     ) {
       regisUser(form)(authDispatch)(response => {

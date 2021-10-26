@@ -16,7 +16,7 @@ const OPTIONS = ['red', 'blue', 'yellow', 'green', 'orange', 'white', 'purple'];
 const WIDTH = Dimensions.get('window').height;
 const HEIGHT = Dimensions.get('window').height;
 
-const ModalPicker = props => {
+const ModalPicker = (props, {onPress}) => {
   const {
     dataDispatch,
     dataState: {
@@ -30,7 +30,9 @@ const ModalPicker = props => {
 
   const onPressItem = option => {
     props.changeModalVisibility(false);
-    props.setData(option[1]);
+    props.setData(option[(0, 1)]);
+    props.vendor_id(option[0]);
+
     // props.setId(option[0]);
   };
 

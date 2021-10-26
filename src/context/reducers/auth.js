@@ -40,6 +40,7 @@ const auth = (state, {type, payload}) => {
         loading: false,
         data: null,
         isLoggedIn: false,
+        pindah: false,
       };
     case REGISTER_FAIL:
     case LOGIN_FAIL:
