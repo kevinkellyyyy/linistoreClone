@@ -19,7 +19,7 @@ import styles from './styles';
 import Icon from '../../common/Icon';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
-// import CheckBox from '@react-native-community/checkbox';
+import CheckBox from '@react-native-community/checkbox';
 
 const RegisterComponent = ({
   onSubmit,
@@ -48,6 +48,8 @@ const RegisterComponent = ({
     setChooseData(option);
     console.log(option);
   };
+
+  const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState(null);
@@ -180,64 +182,25 @@ const RegisterComponent = ({
               }}
             />
 
-            {/* <BouncyCheckbox
-              size={25}
-              fillColor="red"
-              unfillColor="#FFFFFF"
-              text="Custom Checkbox"
-              iconStyle={{borderColor: 'red'}}
-              textStyle={{fontFamily: 'JosefinSans-Regular'}}
-              onPress={(isChecked: true) => {}}
-            /> */}
+            <View style={styles.checkboxWrapper}>
+              <CheckBox
+                disabled={false}
+                color="blue"
+                value={toggleCheckBox}
+                error={errors.tnc || error?.tnc?.[0]}
+                onValueChange={value => {
+                  setToggleCheckBox(value);
+                  onChange({name: 'tnc', value});
+                }}
+              />
+              <Text>
+                Dengan ini saya setuju dengan syarat dan ketentuan, serta
+                kebijakan privasi LINIID
+              </Text>
+            </View>
 
-            <BouncyCheckbox
-              style={{marginTop: 16}}
-              textStyle={{fontSize: 10}}
-              fillColor="blue"
-              isChecked={checkboxState}
-              text="Dengan ini saya setuju dengan syarat dan ketentuan,
-              serta kebijakan privasi LINIID"
-              // disableBuiltInState
-              onPress={value => {
-                setCheckboxState(!checkboxState);
-
-                console.log(value);
-              }}
-            />
-
-            <Text
-              style={{
-                color: 'blue',
-              }}>
-              {checkboxState.toString()}
-            </Text>
-            {/* 
-            <CheckBox
-              disabled={false}
-              value={toggleCheckBox}
-              onValueChange={newValue => setToggleCheckBox(newValue)}
-            /> */}
             {console.log('err', error)}
 
-            {/* <View style={styles.dropdownWrapper}>
-              <TouchableOpacity
-                style={styles.btnDropdown}
-                onPress={() => changeModalVisibility(true)}>
-                <Text style={styles.txtBtnDropdown}>{chooseData}</Text>
-              </TouchableOpacity>
-              <Modal
-                transparent={true}
-                animationType="fade"
-                visible={isModalVisible}
-                nRequestClose={() => changeModalVisibility(false)}>
-                <ModalPicker
-                  dataWarehouse={dataWarehouse}
-                  changeModalVisibility={changeModalVisibility}
-                  setData={setData}
-                  vendor_id={vendor_id}
-                />
-              </Modal>
-            </View> */}
             <CustomButton
               loading={loading}
               onPress={onSubmit}

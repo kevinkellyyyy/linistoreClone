@@ -29,6 +29,10 @@ export default StyleSheet.create({
     fontSize: 17,
   },
 
+  checkboxWrapper: {
+    flexDirection: 'row',
+  },
+
   btnDropdown: {
     width: '100%',
   },
