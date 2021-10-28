@@ -77,13 +77,13 @@ const RegisterComponent = ({
       <Container>
         <Image
           height={70}
-          width={70}
+          width={80}
           source={require('../../assets/images/linistore-logo.png')}
           style={styles.logoImage}
         />
         <View>
-          <Text style={styles.title}>Welcome to LINISTORE</Text>
-          <Text style={styles.subTitle}>Create a free account</Text>
+          <Text style={styles.title}>Selamat Datang di LINISTORE</Text>
+          <Text style={styles.subTitle}>Yuk Buat Akunmu!</Text>
 
           <View style={styles.form}>
             {error?.error && (

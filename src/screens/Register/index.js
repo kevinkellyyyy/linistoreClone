@@ -118,14 +118,14 @@ const Register = () => {
         return {...prev, vendor_id: 'Mohon pilih gudang'};
       });
     }
-    if (!form.tnc === 'false') {
+    if (form.tnc === false) {
       setErrors(prev => {
         return {...prev, tnc: 'Mohon pilih dicentang'};
       });
     }
 
     if (
-      Object.values(form).length === 5 &&
+      Object.values(form).length === 6 &&
       Object.values(errors).every(item => !item)
     ) {
       regisUser(form)(authDispatch)(response => {
