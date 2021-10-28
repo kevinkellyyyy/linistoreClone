@@ -13,6 +13,8 @@ const Register = () => {
   const [form, setForm] = useState({});
 
   const {navigate} = useNavigation();
+  const [modalTermVisible, setModalTermVisible] = useState(false);
+  const [modalPrivacyVisible, setModalPrivacyVisible] = useState(false);
 
   const [errors, setErrors] = useState({});
 
@@ -134,6 +136,10 @@ const Register = () => {
 
   return (
     <RegisterComponent
+      modalTermVisible={modalTermVisible}
+      setModalTermVisible={setModalTermVisible}
+      modalPrivacyVisible={modalPrivacyVisible}
+      setModalPrivacyVisible={setModalPrivacyVisible}
       onSubmit={onSubmit}
       onChange={onChange}
       form={form}

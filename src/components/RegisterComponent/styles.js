@@ -31,6 +31,8 @@ export default StyleSheet.create({
 
   checkboxWrapper: {
     flexDirection: 'row',
+    paddingVertical: 10,
+    textAlign: 'center',
   },
 
   btnDropdown: {

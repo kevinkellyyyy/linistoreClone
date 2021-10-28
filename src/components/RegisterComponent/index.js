@@ -20,6 +20,9 @@ import Icon from '../../common/Icon';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import DropDownPicker from 'react-native-dropdown-picker';
 import CheckBox from '@react-native-community/checkbox';
+import AppModal from '../../common/AppModal';
+import AppModalTerm from '../../common/AppModalTerm';
+import AppModalPrivacy from '../../common/AppModalPrivacy';
 
 const RegisterComponent = ({
   onSubmit,
@@ -28,8 +31,11 @@ const RegisterComponent = ({
   loading,
   data,
   dataWarehouse,
-  vendor_id,
   warehouseLoading,
+  modalTermVisible,
+  setModalTermVisible,
+  modalPrivacyVisible,
+  setModalPrivacyVisible,
   error,
   errors,
 }) => {
@@ -37,17 +43,17 @@ const RegisterComponent = ({
   const [isSecureEntry, setIsSecureEntry] = useState(true);
 
   //DropDown
-  const [chooseData, setChooseData] = useState('Pilih Gudang');
-  const [checkboxState, setCheckboxState] = React.useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const changeModalVisibility = bool => {
-    setIsModalVisible(bool);
-  };
+  // const [chooseData, setChooseData] = useState('Pilih Gudang');
+  // const [checkboxState, setCheckboxState] = React.useState(false);
+  // const [isModalVisible, setIsModalVisible] = useState(false);
+  // const changeModalVisibility = bool => {
+  //   setIsModalVisible(bool);
+  // };
 
-  const setData = option => {
-    setChooseData(option);
-    console.log(option);
-  };
+  // const setData = option => {
+  //   setChooseData(option);
+  //   console.log(option);
+  // };
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
@@ -193,11 +199,43 @@ const RegisterComponent = ({
                   onChange({name: 'tnc', value});
                 }}
               />
-              <Text>
-                Dengan ini saya setuju dengan syarat dan ketentuan, serta
-                kebijakan privasi LINIID
-              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                }}>
+                <Text style={{fontSize: 12}}>
+                  Dengan ini saya setuju dengan
+                </Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalTermVisible(true);
+                  }}>
+                  <Text style={{fontSize: 12, color: 'blue'}}>
+                    {' '}
+                    syarat dan ketentuan
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{fontSize: 12}}>, serta</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    setModalPrivacyVisible(true);
+                  }}>
+                  <Text style={{fontSize: 12, color: 'blue'}}>
+                    kebijakan privasi{' '}
+                  </Text>
+                </TouchableOpacity>
+                <Text style={{fontSize: 12}}>LINIID</Text>
+              </View>
             </View>
+            <AppModalTerm
+              setModalTermVisible={setModalTermVisible}
+              modalTermVisible={modalTermVisible}
+            />
+            <AppModalPrivacy
+              setModalPrivacyVisible={setModalPrivacyVisible}
+              modalPrivacyVisible={modalPrivacyVisible}
+            />
 
             {console.log('err', error)}
 
