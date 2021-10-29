@@ -1,6 +1,7 @@
 export const PRODUCT_LIST = 'Product list';
 export const PRODUCT_DETAIL = 'Product detail';
 export const PROFILE = 'Profile';
+export const STATUS_TRANSAKSI = 'Status Transaksi';
 
 export const LOGIN = 'Login';
 export const REGISTER = 'Register';

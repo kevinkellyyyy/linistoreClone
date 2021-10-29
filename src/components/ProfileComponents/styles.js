@@ -2,17 +2,36 @@ import {StyleSheet} from 'react-native';
 import colors from '../../assets/theme/colors';
 
 export default StyleSheet.create({
+  body: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   image: {width: 30, height: 30},
   wrapperInput: {
     paddingHorizontal: 10,
     flex: 1,
     position: 'relative',
   },
-
+  iconProfile: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  profile: {
+    alignItems: 'center',
+    marginTop: 20,
+  },
+  navigateProfile: {
+    justifyContent: 'center',
+    marginTop: 20,
+  },
   btnLogout: {
-    width: 100,
-    height: 40,
-    backgroundColor: colors.blue,
+    padding: 10,
+    backgroundColor: '#DDDDDD',
+    alignItems: 'center',
   },
   icon: {
     backgroundColor: colors.blue,
@@ -48,6 +67,20 @@ export default StyleSheet.create({
   brgWrapper: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  Table: {
+    flex: 1,
+    padding: 18,
+    paddingTop: 35,
+    backgroundColor: '#ffffff',
+  },
+  HeadStyle: {
+    height: 50,
+    alignContent: 'center',
+    backgroundColor: '#ffe0f0',
+  },
+  TableText: {
+    margin: 10,
   },
   //   wrapper: {
   //     height: 42,

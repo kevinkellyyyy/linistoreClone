@@ -8,7 +8,7 @@ export default StyleSheet.create({
   },
   backgroundImage: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   image: {width: 30, height: 30},
   wrapperInput: {
@@ -17,23 +17,22 @@ export default StyleSheet.create({
     position: 'relative',
   },
   iconProfile: {
-    alignItems: 'center', 
-    marginTop: 20
+    alignItems: 'center',
+    marginTop: 20,
   },
   profile: {
-    alignItems: 'center', 
+    alignItems: 'center',
     marginTop: 20,
   },
   navigateProfile: {
-    flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingHorizontal: 10,
     marginTop: 20,
   },
   btnLogout: {
     padding: 10,
-    backgroundColor: "#DDDDDD",
-    alignItems: 'center'
+    backgroundColor: '#DDDDDD',
+    alignItems: 'center',
   },
   icon: {
     backgroundColor: colors.blue,

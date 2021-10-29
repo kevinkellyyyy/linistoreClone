@@ -10,8 +10,10 @@ import {
   PRODUCT_DETAIL,
   PROFILE,
   REGISTER,
+  STATUS_TRANSAKSI,
 } from '../../constants/routeNames';
 import CartList from '../../screens/CartList';
+import StatusTransaksi from '../../screens/StatusTransaksi';
 import ProductDetail from '../../screens/ProductDetail';
 import HomeNavigator from '../HomeNavigator';
 import Icon from '../../common/Icon';
@@ -33,6 +35,7 @@ const StackNavigator = () => {
       <Stack.Screen name={HOME_NAVIGATOR} component={HomeNavigator} />
       <Stack.Screen name={CART_LIST_STACK} component={CartList} />
       <Stack.Screen name={PROFILE} component={Profile} />
+      <Stack.Screen name={STATUS_TRANSAKSI} component={StatusTransaksi} />
       <Stack.Screen name={PRODUCT_DETAIL} component={ProductDetail} />
       <Stack.Screen name={AUTH_NAVIGATOR} component={AuthNavigator} />
     </Stack.Navigator>
