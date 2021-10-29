@@ -11,7 +11,10 @@ const AppModalTerm = ({
   setModalTermVisible,
 }) => {
   return (
-    <Modal visible={modalTermVisible} transparent>
+    <Modal
+      visible={modalTermVisible}
+      onRequestClose={() => setModalTermVisible(false)}
+      transparent>
       <View style={styles.wrapper}>
         <View style={styles.modalView}>
           <ScrollView>

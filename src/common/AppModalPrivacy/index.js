@@ -12,7 +12,10 @@ const AppModalPrivacy = ({
   setModalPrivacyVisible,
 }) => {
   return (
-    <Modal visible={modalPrivacyVisible} transparent>
+    <Modal
+      visible={modalPrivacyVisible}
+      onRequestClose={() => setModalPrivacyVisible(false)}
+      transparent>
       <View style={styles.wrapper}>
         <View style={styles.modalView}>
           <ScrollView>
@@ -23,7 +26,7 @@ const AppModalPrivacy = ({
                 }}>
                 <Icon size={20} type="evil" name="close" />
               </TouchableOpacity>
-              <Text style={styles.title}>Privacy Policy</Text>
+              <Text style={styles.title}>Kebijakan Privasi</Text>
               <View />
             </View>
             <View style={styles.headerSeparator} />

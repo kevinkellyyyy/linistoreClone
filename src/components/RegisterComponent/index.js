@@ -172,7 +172,14 @@ const RegisterComponent = ({
             <Text style={{paddingVertical: 7}}>Pilih Gudang Terdekat</Text>
 
             <DropDownPicker
+              style={{
+                backgroundColor: 'transparent',
+                borderColor: 'gray',
+                opacity: 0.7,
+                borderRadius: 4,
+              }}
               listMode={'SCROLLVIEW'}
+              placeholderStyle={{color: 'gray'}}
               placeholder="Pilih Gudang"
               selectedItemLabelStyle={{color: 'blue'}}
               open={open}
